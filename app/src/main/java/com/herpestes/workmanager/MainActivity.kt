@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
             //.setRequiredNetworkType(NetworkType.CONNECTED)
             .setRequiresCharging(false)
             .build()
-
+        /*
         val myWorkRequest : WorkRequest = OneTimeWorkRequestBuilder<RefreshDatabase>()
             .setConstraints(constraints)
             .setInputData(data)
@@ -25,6 +25,13 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         WorkManager.getInstance(this).enqueue(myWorkRequest)
+*/
 
+        val myWorkRequest: PeriodicWorkRequest = PeriodicWorkRequestBuilder<RefreshDatabase>(15,TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .setInputData(data)
+            .build()
+
+        WorkManager.getInstance(this).enqueue(myWorkRequest)
     }
 }
